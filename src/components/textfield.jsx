@@ -2,13 +2,14 @@ import React from "react";
 import { StyleSheet, TextInput } from "react-native";
 
 export default function TextField(props) {
-  const { placeholder, keyboardType, onChange, value } = props;
+  const { placeholder, keyboardType, onChange, value , autoFocus} = props;
 
   return (
     <TextInput
       style={styles.input}
       onChangeText={onChange}
       value={value}
+      autoFocus={autoFocus}
       placeholder={placeholder}
       keyboardType={keyboardType}
     />
