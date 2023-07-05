@@ -24,12 +24,13 @@ const styles = StyleSheet.create({
   input: {
     height: 60,
     width: 350,
-    margin: 12,
     borderWidth: 1,
     borderColor: "#233E90",
     padding: 10,
     borderRadius: 10,
     fontSize: 20,
-    textAlign: "center"
+    textAlign: "center",
+    justifyContent: "center"
+    
   },
 });
