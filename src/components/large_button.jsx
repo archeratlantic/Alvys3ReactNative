@@ -3,20 +3,21 @@ import {
   Text,
   View,
   StyleSheet,
-  Button,
+  ActivityIndicator,
   Pressable,
 } from "react-native";
-import Lottie from 'lottie-react-native';
 
 
 export default function LargeButton(props) {
-  const { onPress, title = "Save", isDisabled } = props;
+  const { onPress, title = "Save", isDisabled=false, isLoading=false} = props;
+
   return (
     <View>
-          <Lottie source={require('../path/to/animation.json')} autoPlay loop />
+      <Pressable style={[styles.button, isLoading&&isDisabled? styles.disabledButton: styles.enabledButton]} onPress={onPress} disabled={isDisabled}>
+      
 
-      <Pressable style={[styles.button, isDisabled? styles.disabledButton: styles.enabledButton]} onPress={onPress} disabled={isDisabled}>
-        <Text style={styles.text}>{title}</Text>
+        {!isLoading ?   <Text style={styles.text}>{title}</Text> : <ActivityIndicator size="large" color="#233E90" />}
+
       </Pressable>
     </View>
   );
@@ -33,10 +34,10 @@ const styles = StyleSheet.create({
     minWidth: 300,
   },
   disabledButton:{
-    backgroundColor:"#7C7C7C"
+    backgroundColor: '#ADB8D9',
   }, 
   enabledButton:{
-    backgroundColor: "#233E90",
+    backgroundColor: '#233E90',
   }, 
   text: {
     fontSize: 18,

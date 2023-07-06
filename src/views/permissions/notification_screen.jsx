@@ -1,17 +1,19 @@
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, SafeAreaView } from "react-native";
 import LargeButton from "../../components/large_button";
+import TextButton from "../../components/text_button";
 
-export default function NotificationPermissionScreen() {
+export default function NotificationPermissionScreen({navigation}) {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Notifications</Text>
       <Image style={styles.image} source={require("../../../assets/notification_icon.png")} />
       <Text style={styles.label}>
       Get notified when you are assigned a load and other critical updates.
       </Text>
       <LargeButton title="Continue"/>
-    </View>
+      <TextButton title="Not now" onPress={()=> navigation.replace("NotificationPermission")}/>      
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({

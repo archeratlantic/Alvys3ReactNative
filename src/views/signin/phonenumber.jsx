@@ -11,7 +11,7 @@ export default function PhoneNumberScreen({navigation}) {
     <Text style={styles.label}>A text message with a verification code will be sent to the number.</Text>
     <PhoneNumberInput mask="(999) 999-9999" placeholder="(###) ###-####" autoFocus={true} keyboardType="phone-pad"/>
     
-    <LargeButton title = "Continue" isDisabled={false} onPress={() => navigation.push('VerifyPhoneNumber')}/>
+    <LargeButton title = "Continue" isDisabled={false} isLoading={false} onPress={() => navigation.push('VerifyPhoneNumber')}/>
   </View>);
 }
 const styles = StyleSheet.create({
