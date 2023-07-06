@@ -10,8 +10,7 @@ export default function PhoneNumberInput(props) {
     <MaskedTextInput
       mask={mask}
       placeholder={placeholder}
-      onChangeText={(text, rawText) => {
-        console.log(text);
+      onChangeText={(rawText) => {
         console.log(rawText);
       }}
       keyboardType={keyboardType}
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     fontSize: 20,
     textAlign: "center",
-    justifyContent: "center"
-    
+    justifyContent: "center",
+    marginBottom: 16   
   },
 });

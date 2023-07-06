@@ -1,53 +1,31 @@
-import PhoneNumberScreen from "./src/views/signin/phonenumber";
 import React, { useState, useEffect, useCallback } from "react";
-import {  StyleSheet } from "react-native";
-import { SafeAreaView } from 'react-native-safe-area-context';
-
+import {  StyleSheet, StatusBar, View, Text } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
-import * as Font from "expo-font";
 
-import {
-  useFonts,
-  Poppins_100Thin,
-  Poppins_100Thin_Italic,
-  Poppins_200ExtraLight,
-  Poppins_200ExtraLight_Italic,
-  Poppins_300Light,
-  Poppins_300Light_Italic,
-  Poppins_400Regular,
-  Poppins_400Regular_Italic,
-  Poppins_500Medium,
-  Poppins_500Medium_Italic,
-  Poppins_600SemiBold,
-  Poppins_600SemiBold_Italic,
-  Poppins_700Bold,
-  Poppins_700Bold_Italic,
-  Poppins_800ExtraBold,
-  Poppins_800ExtraBold_Italic,
-  Poppins_900Black,
-  Poppins_900Black_Italic,
-} from "@expo-google-fonts/poppins";
-import { View } from "react-native";
+import LocationPermissionScreen from "./src/views/permissions/location_screen";
+import NotificationPermissionScreen from "./src/views/permissions/notification_screen";
+import VerificationScreen from "./src/views/signin/verification";
+import PhoneNumberScreen from "./src/views/signin/phonenumber";
+
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import useFonts from './src/hooks/useFonts';
+
+SplashScreen.preventAutoHideAsync();
+
+const Stack = createNativeStackNavigator();
+
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
 
-  useEffect(() => {
+  useEffect(() =>{ 
     async function prepare() {
       try {
-        // Keep the splash screen visible while we fetch resources
-        await SplashScreen.preventAutoHideAsync();
-
-        // Pre-load fonts, make any API calls you need to do here
-        await Font.loadAsync({ Poppins_400Regular, Poppins_700Bold });
-
-        // Artificially delay for two seconds to simulate a slow loading
-        // experience. Please remove this if you copy and paste the code!
-        //await new Promise((resolve) => setTimeout(resolve, 2000));
+        await useFonts();
       } catch (e) {
         console.warn(e);
       } finally {
-        // Tell the application to render
         setAppIsReady(true);
       }
     }
@@ -67,18 +45,22 @@ export default function App() {
   }, [appIsReady]);
 
   if (!appIsReady) {
-    return null;
+    return <Text style={{color:"#000", fontSize:20}}>Loading...</Text>;
   }
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <View
-        style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        onLayout={onLayoutRootView}
-      >
-        <PhoneNumberScreen />
-      </View>
-    </SafeAreaView>
+  return (      
+
+    <NavigationContainer onReady={onLayoutRootView}>
+       <StatusBar barStyle="dark-content"/>
+        <Stack.Navigator>
+          <Stack.Screen name="PhoneNumberLogin" component={PhoneNumberScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="VerifyPhoneNumber" component={VerificationScreen} options={{ headerShown: false }}/>
+          <Stack.Screen name="LocationPermission" component={LocationPermissionScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="NotificationPermission" component={NotificationPermissionScreen} options={{ headerShown: false }} />       
+        </Stack.Navigator>      
+    </NavigationContainer>    
+     
+      
   );
 }
 
